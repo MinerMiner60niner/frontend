@@ -38,15 +38,16 @@ function App() {
     const touchEnd = e.changedTouches[0].clientX;
     const diff = touchEnd - touchStart;
 
-    if (diff > 50) prev();      // vilciens pa labi → iepriekšējais slaids
-    if (diff < -50) next();     // vilciens pa kreisi → nākamais slaids
+    if (diff > 50) prev();
+    if (diff < -50) next();
 
     setTouchStart(null);
   };
 
   return (
-    <div className="slider">
-      <button className="arrow left" onClick={prev}>‹</button>
+    <div className="slider-container">
+      {/* LEFT ARROW */}
+      <button className="arrow absolute-left" onClick={prev}>‹</button>
 
       <div
         className={`slide ${direction}`}
@@ -68,7 +69,8 @@ function App() {
         )}
       </div>
 
-      <button className="arrow right" onClick={next}>›</button>
+      {/* RIGHT ARROW */}
+      <button className="arrow absolute-right" onClick={next}>›</button>
     </div>
   );
 }
