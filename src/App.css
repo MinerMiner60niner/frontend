@@ -15,21 +15,14 @@ body {
   padding: 0;
 }
 
-/* SLIDE AREA — 3/5 of screen on desktop */
+/* SLIDE AREA — now significantly larger */
 .slide {
-  width: 95%;
-  max-width: 900px;
+  max-width: 900px;     /* increased from 700px */
+  width: 95%;           /* more space for content */
   text-align: center;
   transition: transform 0.4s ease;
 }
 
-@media (min-width: 900px) {
-  .slide {
-    width: 60%; /* 3/5 of the screen */
-  }
-}
-
-/* ANIMATIONS */
 .slide.right {
   animation: slideRight 0.4s ease;
 }
@@ -48,16 +41,14 @@ body {
   to   { transform: translateX(0); opacity: 1; }
 }
 
-/* IMAGE */
 .slide img {
   width: 100%;
-  max-height: 65vh;
+  max-height: 65vh;     /* more space for image */
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.6);
 }
 
-/* TEXT */
 .slide h2 {
   margin-top: 16px;
   font-size: 28px;
@@ -69,31 +60,28 @@ body {
   opacity: 0.9;
 }
 
-/* ARROWS — red glow, white oval border, responsive size */
+/* ARROWS — red glow, responsive size */
 .arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background: transparent;
-  border: 4px solid rgba(255,255,255,0.7); /* white oval border */
-  border-radius: 50%;
-  padding: 12px 22px;
+  border: none;
   color: #ff3b3b;
   cursor: pointer;
   transition: 0.2s;
   text-shadow: 0 0 10px #ff0000; /* 50% smaller glow */
 }
 
-/* MOBILE SIZE — 3× */
+/* MOBILE SIZE (default) */
 .arrow {
-  font-size: 96px;
+  font-size: 48px;
 }
 
-/* DESKTOP SIZE — 5× */
+/* DESKTOP SIZE — 5× bigger */
 @media (min-width: 900px) {
   .arrow {
     font-size: 200px;
-    padding: 20px 32px;
   }
 }
 
@@ -108,11 +96,11 @@ body {
 /* LEFT ARROW POSITION */
 .arrow-left {
   left: 0;
-  margin-left: 12px;
+  padding-left: 20px;
 }
 
 /* RIGHT ARROW POSITION */
 .arrow-right {
   right: 0;
-  margin-right: 12px;
+  padding-right: 20px;
 }
