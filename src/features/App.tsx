@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchSlides } from "./api";
-import type { Slide } from "./types";
+import type { Slide } from "./slides/types";
 import "./App.css";
 
 function App() {
