@@ -44,10 +44,7 @@ function App() {
       {/* LEFT ARROW */}
       <button className="arrow arrow-left" onClick={prev}>‹</button>
 
-      {/* LEFT WHITE LINE */}
-      <div className="separator"></div>
-
-      {/* SLIDE CONTENT */}
+      {/* MAIN CONTENT */}
       <div
         className={`slide ${direction}`}
         onTouchStart={handleTouchStart}
@@ -67,9 +64,6 @@ function App() {
           </div>
         )}
       </div>
-
-      {/* RIGHT WHITE LINE */}
-      <div className="separator"></div>
 
       {/* RIGHT ARROW */}
       <button className="arrow arrow-right" onClick={next}>›</button>

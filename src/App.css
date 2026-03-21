@@ -12,20 +12,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 
-/* WHITE LINES */
-.separator {
-  width: 2px;
-  height: 70vh;
-  background: white;
-  margin: 0 24px;
-}
-
-/* SLIDE */
+/* SLIDE AREA — now significantly larger */
 .slide {
-  max-width: 700px;
-  width: 90%;
+  max-width: 900px;     /* increased from 700px */
+  width: 95%;           /* more space for content */
   text-align: center;
   transition: transform 0.4s ease;
 }
@@ -50,7 +43,7 @@ body {
 
 .slide img {
   width: 100%;
-  max-height: 60vh;
+  max-height: 65vh;     /* more space for image */
   object-fit: contain;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.6);
@@ -58,32 +51,46 @@ body {
 
 .slide h2 {
   margin-top: 16px;
-  font-size: 24px;
+  font-size: 28px;
 }
 
 .lines {
   margin-top: 12px;
-  font-size: 14px;
+  font-size: 16px;
   opacity: 0.9;
 }
 
-/* ARROWS — 5× bigger + red glow + outer edges */
+/* ARROWS — red glow, responsive size */
 .arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   background: transparent;
   border: none;
-  color: #ff3b3b;          /* red */
-  font-size: 200px;        /* 5× bigger */
+  color: #ff3b3b;
   cursor: pointer;
   transition: 0.2s;
-  text-shadow: 0 0 20px #ff0000; /* red glow */
+  text-shadow: 0 0 10px #ff0000; /* 50% smaller glow */
 }
 
-.arrow:hover {
-  transform: translateY(-50%) scale(1.1);
-  text-shadow: 0 0 35px #ff0000;
+/* MOBILE SIZE (default) */
+.arrow {
+  font-size: 48px;
+}
+
+/* DESKTOP SIZE — 5× bigger */
+@media (min-width: 900px) {
+  .arrow {
+    font-size: 200px;
+  }
+}
+
+/* HOVER EFFECT (desktop only) */
+@media (hover: hover) {
+  .arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+    text-shadow: 0 0 20px #ff0000;
+  }
 }
 
 /* LEFT ARROW POSITION */
