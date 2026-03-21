@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchSlides } from "./api";
-import type { Slide } from "./slides/types";
+import type { Slide } from "./types";
+import "./App.css";
 
 function App() {
   const [slides, setSlides] = useState<Slide[]>([]);
@@ -41,32 +42,31 @@ function App() {
     <div className="slider-container">
 
       {/* LEFT ARROW */}
-      <button className="arrow arrow-left" onClick={prev}>‹</button>
+      <button className="arrow absolute-left" onClick={prev}>‹</button>
 
-      {/* SLIDE CONTENT */}
+      {/* MAIN CONTENT */}
       <div
         className={`slide ${direction}`}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         <img
-          src={`https://backend-so4g.onrender.com${current.imageUrl}`}
+          src={`https://backend-so4g.onrender.com/images/${current.imageFile}`}
           alt={current.title}
         />
-
         <h2>{current.title}</h2>
 
         {current.lines?.length > 0 && (
           <div className="lines">
             <p>{current.lines[0].jp}</p>
-            <p className="opacity-80">{current.lines[0].lv}</p>
-            <p className="opacity-80">{current.lines[0].en}</p>
+            <p>{current.lines[0].lv}</p>
+            <p>{current.lines[0].en}</p>
           </div>
         )}
       </div>
 
       {/* RIGHT ARROW */}
-      <button className="arrow arrow-right" onClick={next}>›</button>
+      <button className="arrow absolute-right" onClick={next}>›</button>
 
     </div>
   );
