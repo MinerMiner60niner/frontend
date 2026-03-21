@@ -17,7 +17,8 @@ body {
 /* SLIDER WRAPPER — 3/5 ekrāna uz PC */
 .slider-container {
   @apply relative flex items-center justify-center w-full;
-  max-width: 60%; /* 3/5 ekrāna */
+  max-width: 60%;
+  min-height: 70vh; /* ← ŠIS ir kritiski, lai bultiņas centrējas */
   margin: 0 auto;
 }
 
@@ -46,17 +47,20 @@ body {
   @apply text-lg;
 }
 
-/* ARROWS */
+/* ARROWS — vertikāli centrētas */
 .arrow {
   @apply absolute text-6xl font-bold text-red-500 cursor-pointer select-none;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 50; /* ← lai vienmēr ir virs attēla */
 }
 
+/* LEFT ARROW */
 .arrow-left {
   left: -3rem;
 }
 
+/* RIGHT ARROW */
 .arrow-right {
   right: -3rem;
 }
