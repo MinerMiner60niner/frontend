@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  background: #111;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+}
+
+.slider {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.slide {
+  max-width: 700px;
+  width: 90%;
+  text-align: center;
+  transition: transform 0.4s ease;
+  backface-visibility: hidden;
+}
+
+.slide.right {
+  animation: slideRight 0.4s ease;
+}
+
+.slide.left {
+  animation: slideLeft 0.4s ease;
+}
+
+@keyframes slideRight {
+  from { transform: translateX(80px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(-80px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+/* ✅ MINIMAL FIX: dynamic image height for mobile */
+.slide img {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;      /* dynamic height that works in portrait + landscape */
+  object-fit: contain;   /* never crop */
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+.slide h2 {
+  margin-top: 16px;
+  font-size: 24px;
+}
+
+.lines {
+  margin-top: 12px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* FIXED ARROW BUTTON — no artifacts, no borders, no outlines */
+.arrow {
+  background: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: none;
+  color: #fff;
+  font-size: 48px;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: transform 0.15s, color 0.15s;
+}
+
+.arrow:focus {
+  outline: none;
+}
+
+.arrow:hover {
+  transform: scale(1.2);
+  color: #ff7de0;
+}
