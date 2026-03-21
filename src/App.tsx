@@ -7,7 +7,6 @@ function App() {
   const [slides, setSlides] = useState<Slide[]>([]);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<"left" | "right">("right");
-
   const [touchStart, setTouchStart] = useState<number | null>(null);
 
   useEffect(() => {
@@ -28,27 +27,27 @@ function App() {
     setIndex((i) => (i - 1 + slides.length) % slides.length);
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: React.TouchEvent) =>
     setTouchStart(e.touches[0].clientX);
-  };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStart === null) return;
-
-    const touchEnd = e.changedTouches[0].clientX;
-    const diff = touchEnd - touchStart;
-
+    const diff = e.changedTouches[0].clientX - touchStart;
     if (diff > 50) prev();
     if (diff < -50) next();
-
     setTouchStart(null);
   };
 
   return (
     <div className="slider-container">
-      {/* LEFT ARROW */}
-      <button className="arrow absolute-left" onClick={prev}>‹</button>
 
+      {/* LEFT ARROW */}
+      <button className="arrow arrow-left" onClick={prev}>‹</button>
+
+      {/* LEFT WHITE LINE */}
+      <div className="separator"></div>
+
+      {/* SLIDE CONTENT */}
       <div
         className={`slide ${direction}`}
         onTouchStart={handleTouchStart}
@@ -69,8 +68,12 @@ function App() {
         )}
       </div>
 
+      {/* RIGHT WHITE LINE */}
+      <div className="separator"></div>
+
       {/* RIGHT ARROW */}
-      <button className="arrow absolute-right" onClick={next}>›</button>
+      <button className="arrow arrow-right" onClick={next}>›</button>
+
     </div>
   );
 }

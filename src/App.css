@@ -5,7 +5,7 @@ body {
   font-family: system-ui, sans-serif;
 }
 
-/* NEW: wrapper that allows absolute arrows */
+/* MAIN LAYOUT */
 .slider-container {
   position: relative;
   height: 100vh;
@@ -14,13 +14,20 @@ body {
   justify-content: center;
 }
 
-/* Your original slide styling */
+/* WHITE LINES */
+.separator {
+  width: 2px;
+  height: 70vh;
+  background: white;
+  margin: 0 24px;
+}
+
+/* SLIDE */
 .slide {
   max-width: 700px;
   width: 90%;
   text-align: center;
   transition: transform 0.4s ease;
-  backface-visibility: hidden;
 }
 
 .slide.right {
@@ -43,7 +50,6 @@ body {
 
 .slide img {
   width: 100%;
-  height: auto;
   max-height: 60vh;
   object-fit: contain;
   border-radius: 12px;
@@ -61,35 +67,33 @@ body {
   opacity: 0.9;
 }
 
-/* Your arrow styling */
+/* ARROWS — 5× bigger + red glow + outer edges */
 .arrow {
-  background: transparent;
-  border: none;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 48px;
-  cursor: pointer;
-  padding: 8px 12px;
-  transition: transform 0.15s, color 0.15s;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #ff3b3b;          /* red */
+  font-size: 200px;        /* 5× bigger */
+  cursor: pointer;
+  transition: 0.2s;
+  text-shadow: 0 0 20px #ff0000; /* red glow */
 }
 
 .arrow:hover {
-  transform: translateY(-50%) scale(1.2);
-  color: #ff7de0;
+  transform: translateY(-50%) scale(1.1);
+  text-shadow: 0 0 35px #ff0000;
 }
 
-/* NEW: arrows on outer edges */
-.absolute-left {
-  left: 16px;
+/* LEFT ARROW POSITION */
+.arrow-left {
+  left: 0;
+  padding-left: 20px;
 }
 
-.absolute-right {
-  right: 16px;
+/* RIGHT ARROW POSITION */
+.arrow-right {
+  right: 0;
+  padding-right: 20px;
 }
