@@ -54,7 +54,7 @@ function App() {
         onTouchEnd={handleTouchEnd}
       >
         <img
-          src={`http://localhost:3000/images/${current.imageFile}`}
+          src={`https://backend-so4g.onrender.com/images/${current.imageFile}`}
           alt={current.title}
         />
         <h2>{current.title}</h2>
