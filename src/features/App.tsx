@@ -43,9 +43,6 @@ function App() {
       {/* LEFT ARROW */}
       <button className="arrow arrow-left" onClick={prev}>‹</button>
 
-      {/* LEFT WHITE LINE */}
-      <div className="separator"></div>
-
       {/* SLIDE CONTENT */}
       <div
         className={`slide ${direction}`}
@@ -53,22 +50,20 @@ function App() {
         onTouchEnd={handleTouchEnd}
       >
         <img
-          src={`https://backend-so4g.onrender.com/images/${current.imageFile}`}
+          src={`https://backend-so4g.onrender.com${current.imageUrl}`}
           alt={current.title}
         />
+
         <h2>{current.title}</h2>
 
         {current.lines?.length > 0 && (
           <div className="lines">
             <p>{current.lines[0].jp}</p>
-            <p>{current.lines[0].lv}</p>
-            <p>{current.lines[0].en}</p>
+            <p className="opacity-80">{current.lines[0].lv}</p>
+            <p className="opacity-80">{current.lines[0].en}</p>
           </div>
         )}
       </div>
-
-      {/* RIGHT WHITE LINE */}
-      <div className="separator"></div>
 
       {/* RIGHT ARROW */}
       <button className="arrow arrow-right" onClick={next}>›</button>

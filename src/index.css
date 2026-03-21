@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GLOBAL BACKGROUND */
+body {
+  @apply bg-black text-white bg-cover bg-center bg-no-repeat;
+  background-image: url("https://backend-so4g.onrender.com/images/Background.jpg");
+  margin: 0;
+}
+
+/* ROOT WRAPPER */
+#root {
+  @apply w-full min-h-screen flex items-center justify-center;
+}
+
+/* SLIDER WRAPPER — 3/5 ekrāna uz PC */
+.slider-container {
+  @apply relative flex items-center justify-center w-full;
+  max-width: 60%; /* 3/5 ekrāna */
+  margin: 0 auto;
+}
+
+/* SLIDE CONTENT */
+.slide {
+  @apply flex flex-col items-center justify-center text-center w-full;
+}
+
+/* IMAGE — dinamiskais izmērs */
+.slide img {
+  @apply w-full object-contain rounded-xl shadow-xl;
+  max-height: 70vh;
+}
+
+/* TITLE */
+.slide h2 {
+  @apply text-3xl font-bold mt-4;
+}
+
+/* TEXT LINES */
+.lines {
+  @apply mt-4 space-y-2;
+}
+
+.lines p {
+  @apply text-lg;
+}
+
+/* ARROWS */
+.arrow {
+  @apply absolute text-6xl font-bold text-red-500 cursor-pointer select-none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow-left {
+  left: -3rem;
+}
+
+.arrow-right {
+  right: -3rem;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .slider-container {
+    max-width: 95%;
+  }
+
+  .arrow {
+    @apply text-4xl;
+  }
+
+  .arrow-left {
+    left: -1.5rem;
+  }
+
+  .arrow-right {
+    right: -1.5rem;
+  }
+}
+
+/* ANIMATIONS */
+.slide.right {
+  animation: slideRight 0.35s ease;
+}
+
+.slide.left {
+  animation: slideLeft 0.35s ease;
+}
+
+@keyframes slideRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(-40px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
