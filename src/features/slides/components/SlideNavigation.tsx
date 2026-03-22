@@ -11,17 +11,19 @@ export function SlideNavigation({ onPrev, onNext }: Props) {
         onClick={onPrev}
         className="
           fixed top-1/2 -translate-y-1/2
-          text-red-500 text-[56px] md:text-[80px]
+          text-[70px] md:text-[90px]
           font-bold select-none cursor-pointer
-          bg-transparent outline-none
+          bg-transparent outline-none border-none
           transition transform hover:scale-110
         "
         style={{
           left: "16px",
-          textShadow: "0 0 10px rgba(255,0,0,0.9)",
+          color: "#b30000", // dark red fill
+          textShadow: "0 0 20px rgba(255,0,0,1)", // strong glow
+          lineHeight: "0.7",
         }}
       >
-        ‹
+        ⟨
       </button>
 
       {/* Right arrow */}
@@ -29,17 +31,19 @@ export function SlideNavigation({ onPrev, onNext }: Props) {
         onClick={onNext}
         className="
           fixed top-1/2 -translate-y-1/2
-          text-red-500 text-[56px] md:text-[80px]
+          text-[70px] md:text-[90px]
           font-bold select-none cursor-pointer
-          bg-transparent outline-none
+          bg-transparent outline-none border-none
           transition transform hover:scale-110
         "
         style={{
           right: "16px",
-          textShadow: "0 0 10px rgba(255,0,0,0.9)",
+          color: "#b30000", // dark red fill
+          textShadow: "0 0 20px rgba(255,0,0,1)", // strong glow
+          lineHeight: "0.7",
         }}
       >
-        ›
+        ⟩
       </button>
     </>
   );

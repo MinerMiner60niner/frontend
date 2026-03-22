@@ -42,9 +42,15 @@ export function SlideViewer({ slides }: Props) {
       <SlideNavigation onPrev={prev} onNext={next} />
 
       <div
-        className="w-full min-h-screen flex flex-col items-center pt-20 pb-20"
+        className="w-full h-screen flex flex-col items-center justify-center"
         onTouchStart={handleStart}
         onTouchEnd={handleEnd}
+        style={{
+          backgroundImage: "url('https://backend-so4g.onrender.com/images/Background.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
         <div
           className={`
