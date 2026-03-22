@@ -42,7 +42,16 @@ export function SlideViewer({ slides }: Props) {
       <SlideNavigation onPrev={prev} onNext={next} />
 
       <div
-        className="w-full h-screen flex flex-col items-center justify-center"
+        className="
+          w-full
+          h-screen
+          overflow-y-auto
+          flex
+          flex-col
+          items-center
+          justify-start
+          pt-4
+        "
         onTouchStart={handleStart}
         onTouchEnd={handleEnd}
         style={{
