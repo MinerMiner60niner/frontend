@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Slide } from "../types.ts";
+import type { Slide } from "../types";
 import { SlideImage } from "./SlideImage";
 import { SlideText } from "./SlideText";
 import { SlideNavigation } from "./SlideNavigation";
@@ -23,22 +23,21 @@ export function SlideViewer({ slides }: Props) {
   const slide = slides[index];
 
   return (
-    <div className="relative w-full flex items-center justify-center">
-
+    <div className="relative w-full h-screen flex items-center justify-center">
       <SlideNavigation onPrev={prev} onNext={next} />
 
       <div
         className={`
-          w-3/5 
-          max-w-3xl 
-          mx-auto 
-          text-center 
-          transition-all 
-          duration-300 
+          max-w-[700px]
+          w-[90%]
+          text-center
+          transition-transform
+          duration-400
           ${direction === "right" ? "animate-slideRight" : "animate-slideLeft"}
         `}
       >
         <SlideImage title={slide.title} url={slide.imageUrl} />
+        <h2 className="mt-4 text-2xl font-bold">{slide.title}</h2>
         <SlideText lines={slide.lines} />
       </div>
     </div>

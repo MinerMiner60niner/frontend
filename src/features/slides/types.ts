@@ -11,5 +11,5 @@ export type Slide = {
   title: string;
   lines: Line[];
   comments: string[];
-  imageUrl: string; // ← backend pievieno šo automātiski
+  imageUrl: string;
 };
