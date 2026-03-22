@@ -1,10 +1,12 @@
 import { useState } from "react";
 import type { Slide } from "../types";
+import { SlideNavigation } from "./SlideNavigation";
 import { SlideImage } from "./SlideImage";
 import { SlideText } from "./SlideText";
-import { SlideNavigation } from "./SlideNavigation";
 
-type Props = { slides: Slide[] };
+type Props = {
+  slides: Slide[];
+};
 
 export function SlideViewer({ slides }: Props) {
   const [index, setIndex] = useState(0);
@@ -22,24 +24,42 @@ export function SlideViewer({ slides }: Props) {
 
   const slide = slides[index];
 
+  // Swipe support
+  let startX = 0;
+
+  const handleStart = (e: React.TouchEvent) => {
+    startX = e.touches[0].clientX;
+  };
+
+  const handleEnd = (e: React.TouchEvent) => {
+    const diff = e.changedTouches[0].clientX - startX;
+    if (diff > 50) prev();
+    if (diff < -50) next();
+  };
+
   return (
-    <div className="relative w-full h-screen flex items-center justify-center">
+    <>
       <SlideNavigation onPrev={prev} onNext={next} />
 
       <div
-        className={`
-          max-w-[700px]
-          w-[90%]
-          text-center
-          transition-transform
-          duration-400
-          ${direction === "right" ? "animate-slideRight" : "animate-slideLeft"}
-        `}
+        className="w-full min-h-screen flex flex-col items-center pt-20 pb-20"
+        onTouchStart={handleStart}
+        onTouchEnd={handleEnd}
       >
-        <SlideImage title={slide.title} url={slide.imageUrl} />
-        <h2 className="mt-4 text-2xl font-bold">{slide.title}</h2>
-        <SlideText lines={slide.lines} />
+        <div
+          className={`
+            max-w-[700px]
+            w-[90%]
+            text-center
+            transition-transform duration-300
+            ${direction === "right" ? "animate-slideRight" : "animate-slideLeft"}
+          `}
+        >
+          <SlideImage title={slide.title} url={slide.imageUrl} />
+          <h2 className="mt-4 text-2xl font-bold">{slide.title}</h2>
+          <SlideText lines={slide.lines} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

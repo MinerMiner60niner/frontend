@@ -1,9 +1,12 @@
+@import "./features/slides/hooks/animations.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "./features/slides/hooks/animations.css";
-
 body {
-  @apply m-0 bg-[#111] text-white font-sans;
+  margin: 0;
+  background: #111;
+  color: white;
+  font-family: system-ui, sans-serif;
 }
