@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useLanguage } from "../../../hooks/useLanguage";
 import type { Line } from "../types";
 
 type Props = { lines: Line[] };
 
 export function SlideText({ lines }: Props) {
-  const languages = ["lv", "en", "romaji"] as const;
-  const [langIndex, setLangIndex] = useState(0);
-  const lang = languages[langIndex];
+  const { language } = useLanguage();
 
   return (
     <div className="mt-6 space-y-6">
@@ -17,22 +15,10 @@ export function SlideText({ lines }: Props) {
           </p>
 
           <p className="text-lg text-gray-200">
-            {line[lang]}
+            {line[language]}
           </p>
         </div>
       ))}
-
-      <button
-        onClick={() => setLangIndex((i) => (i + 1) % languages.length)}
-        className="
-          mt-4 px-4 py-2 rounded 
-          bg-red-500 text-white 
-          hover:bg-red-600 
-          transition
-        "
-      >
-        {lang.toUpperCase()}
-      </button>
     </div>
   );
 }
