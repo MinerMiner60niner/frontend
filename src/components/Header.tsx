@@ -3,28 +3,22 @@ import { useAuth } from "../features/auth/AuthContext";
 
 export function Header() {
   const { language, cycleLanguage } = useLanguage();
-  const { user, openLogin, logout } = useAuth();
+  const { user, openLogin, closeLogin, logout } = useAuth();
 
   return (
-    <header
-      className="
-        w-full 
-        h-[35px]
-        flex 
-        items-center 
-        justify-between
-        px-6
-        text-white
-      "
-      style={{
-        backgroundColor: "rgba(179, 0, 0, 0.85)",
-      }}
-    >
-      {/* Kreisā puse */}
-      <div className="text-xl font-bold select-none"></div>
+    <header className="fixed top-0 left-0 w-full z-40 flex justify-center mt-4">
+      <div className="flex items-center gap-6 px-6 py-2 bg-black/40 backdrop-blur-md rounded-lg text-white text-lg">
 
-      {/* Labā puse */}
-      <div className="flex items-center gap-6 text-lg">
+        {/* Comments */}
+        <button
+          onClick={() => {
+            closeLogin(); // lai nepārklājas
+            window.dispatchEvent(new CustomEvent("open-comments"));
+          }}
+          className="hover:opacity-80 transition"
+        >
+          💬 Comments
+        </button>
 
         {/* Login / Logout */}
         {user ? (
@@ -37,7 +31,10 @@ export function Header() {
           </button>
         ) : (
           <button
-            onClick={openLogin}
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent("close-comments"));
+              openLogin();
+            }}
             className="flex items-center gap-2 hover:opacity-80 transition"
           >
             <span className="text-2xl">👤</span>

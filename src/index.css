@@ -1,4 +1,4 @@
-@import "./features/slides/hooks/animations.css";
+@import "./features/slides/styles/animations.css";
 
 @tailwind base;
 @tailwind components;

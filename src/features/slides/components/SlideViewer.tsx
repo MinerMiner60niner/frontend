@@ -3,29 +3,19 @@ import type { Slide } from "../types";
 import { SlideNavigation } from "./SlideNavigation";
 import { SlideImage } from "./SlideImage";
 import { SlideText } from "./SlideText";
-import { CommentsPanel } from "../../comments/components/CommentsPanel";
-import { LikeButton } from "../../../components/LikeButton";
 
-type Props = {
-  slides: Slide[];
-};
-
-export function SlideViewer({ slides }: Props) {
+export function SlideViewer({ slides }: { slides: Slide[] }) {
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState<"left" | "right">("right");
-  const [commentsOpen, setCommentsOpen] = useState(false);
+
+  const slide = slides[index];
 
   const next = () => {
-    setDirection("right");
     setIndex((i) => (i + 1) % slides.length);
   };
 
   const prev = () => {
-    setDirection("left");
     setIndex((i) => (i - 1 + slides.length) % slides.length);
   };
-
-  const slide = slides[index];
 
   let startX = 0;
 
@@ -42,12 +32,6 @@ export function SlideViewer({ slides }: Props) {
   return (
     <>
       <SlideNavigation onPrev={prev} onNext={next} />
-
-      <CommentsPanel
-        slideId={slide.id}
-        open={commentsOpen}
-        closePanel={() => setCommentsOpen(false)}
-      />
 
       <div
         className="
@@ -69,29 +53,10 @@ export function SlideViewer({ slides }: Props) {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div
-          className={`
-            max-w-[700px]
-            w-[90%]
-            text-center
-            transition-transform duration-300
-            ${direction === "right" ? "animate-slideRight" : "animate-slideLeft"}
-          `}
-        >
+        <div className="max-w-[700px] w-[90%] text-center">
           <SlideImage title={slide.title} url={slide.imageUrl} />
           <h2 className="mt-4 text-2xl font-bold">{slide.title}</h2>
           <SlideText lines={slide.lines} />
-
-          <div className="flex justify-center gap-4 mt-6">
-            <button
-              onClick={() => setCommentsOpen(true)}
-              className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900"
-            >
-              Comments
-            </button>
-
-            <LikeButton slideId={slide.id} />
-          </div>
         </div>
       </div>
     </>

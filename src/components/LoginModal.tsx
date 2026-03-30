@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { useAuth } from "../features/auth/AuthContext";
+import type { ApiError } from "../types/ApiError";
 
-export function LoginModal() {
+type Props = {
+  toast: {
+    show: (msg: string) => void;
+  };
+};
+
+export function LoginModal({ toast }: Props) {
   const { loginOpen, closeLogin, login, register } = useAuth();
 
   const [isRegister, setIsRegister] = useState(false);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,17 +19,28 @@ export function LoginModal() {
   if (!loginOpen) return null;
 
   async function handleSubmit() {
-    if (isRegister) {
-      await register(name, email, password);
-    } else {
-      await login(email, password);
+    try {
+      if (isRegister) {
+        await register(name, email, password);
+        toast.show("Tu esi reģistrējies veiksmīgi!");
+      } else {
+        await login(email, password);
+        toast.show("Sveicināts atpakaļ!");
+      }
+      closeLogin();
+    } catch (error) {
+      const err = error as ApiError;
+
+      if (err.status === 404) toast.show("Kļūme: serveris neatbild (404)");
+      else if (err.status === 500) toast.show("Servera kļūda (500)");
+      else if (err.status === 504) toast.show("Gateway Timeout (504)");
+      else toast.show("Kļūme, nesanāca ieiet kontā!");
     }
-    closeLogin();
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-      <div className="bg-white p-6 rounded shadow-lg w-80">
+    <div className="fixed inset-0 z-50 flex justify-center pt-[110px] bg-gradient-to-b from-black/70 via-black/50 to-black/20">
+      <div className="bg-white p-6 rounded-lg shadow-xl w-[90%] max-w-[400px]">
         <h2 className="text-xl font-bold mb-4">
           {isRegister ? "Create Account" : "Login"}
         </h2>

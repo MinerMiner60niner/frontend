@@ -1,74 +1,108 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useComments } from "../../../hooks/useComments";
+import type { ApiError } from "../../../types/ApiError";
 
 type Props = {
   slideId: number;
-  open: boolean;
-  closePanel: () => void;
+  toast: {
+    show: (msg: string) => void;
+  };
 };
 
-export function CommentsPanel({ slideId, open, closePanel }: Props) {
+export function CommentsPanel({ slideId, toast }: Props) {
   const { comments, loading, error, addComment, deleteComment } = useComments(slideId);
   const [text, setText] = useState("");
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const openHandler = () => setOpen(true);
+    const closeHandler = () => setOpen(false);
+
+    window.addEventListener("open-comments", openHandler);
+    window.addEventListener("close-comments", closeHandler);
+
+    return () => {
+      window.removeEventListener("open-comments", openHandler);
+      window.removeEventListener("close-comments", closeHandler);
+    };
+  }, []);
 
   if (!open) return null;
 
+  async function handleAdd() {
+    try {
+      await addComment(text);
+      toast.show("Jūs veiksmīgi aizsūtījāt komentāru!");
+      setText("");
+    } catch (error) {
+      const err = error as ApiError;
+
+      if (err.status === 404) toast.show("API nav atrodams (404)");
+      else if (err.status === 500) toast.show("Servera kļūda (500)");
+      else if (err.status === 504) toast.show("Gateway Timeout (504)");
+      else toast.show("Neizdevās pievienot komentāru!");
+    }
+  }
+
+  async function handleDelete(id: number) {
+    try {
+      await deleteComment(id);
+      toast.show("Komentārs izdzēsts!");
+    } catch (error) {
+      const err = error as ApiError;
+
+      if (err.status === 404) toast.show("API nav atrodams (404)");
+      else if (err.status === 500) toast.show("Servera kļūda (500)");
+      else toast.show("Jūsu mēģinājums izdzēst radīja kļūmi!");
+    }
+  }
+
   return (
-    <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-xl p-4 border-l border-gray-200">
-      <h2 className="text-xl font-bold mb-4">Comments</h2>
+    <div className="fixed inset-0 z-50 flex justify-center pt-[110px] bg-gradient-to-b from-black/70 via-black/50 to-black/20">
+      <div className="bg-white p-6 rounded-lg shadow-xl w-[90%] max-w-[450px] max-h-[75vh] overflow-y-auto">
 
-      {loading && <p className="text-gray-500">Loading comments…</p>}
-      {error && <p className="text-red-600">{error}</p>}
+        <h2 className="text-xl font-bold mb-4">Comments</h2>
 
-      <div className="space-y-3 mb-4 max-h-[60vh] overflow-y-auto">
-        {comments.length === 0 && !loading && (
-          <p className="text-gray-500">No comments yet.</p>
-        )}
+        {loading && <p>Loading comments…</p>}
+        {error && <p className="text-red-600">{error}</p>}
 
-        {comments.map((c) => (
-          <div key={c.id} className="p-2 border rounded bg-gray-50 flex justify-between">
-            <div>
-              <p className="font-semibold text-sm">{c.user_name ?? "User"}</p>
-              <p className="text-sm">{c.text}</p>
-              <p className="text-xs text-gray-500 mt-1">
-                {new Date(c.created_at).toLocaleString()}
-              </p>
+        <div className="space-y-3 mb-4">
+          {comments.map((c) => (
+            <div key={c.id} className="p-2 border rounded bg-gray-50">
+              <p className="font-semibold">{c.user_name}</p>
+              <p>{c.text}</p>
+
+              <button
+                onClick={() => handleDelete(c.id)}
+                className="text-red-600 font-bold hover:text-red-800 mt-1"
+              >
+                ✕
+              </button>
             </div>
+          ))}
+        </div>
 
-            <button
-              onClick={() => deleteComment(c.id)}
-              className="text-red-600 font-bold hover:text-red-800 ml-2"
-            >
-              ✕
-            </button>
-          </div>
-        ))}
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="w-full border rounded p-2 mb-2"
+          placeholder="Write a comment…"
+        />
+
+        <button
+          onClick={handleAdd}
+          className="w-full bg-red-600 text-white py-2 rounded mb-2 hover:bg-red-700"
+        >
+          Add Comment
+        </button>
+
+        <button
+          onClick={() => setOpen(false)}
+          className="w-full bg-gray-300 py-2 rounded hover:bg-gray-400"
+        >
+          Close
+        </button>
       </div>
-
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="w-full border rounded p-2 mb-2"
-        placeholder="Write a comment…"
-      />
-
-      <button
-        onClick={() => {
-          if (text.trim().length === 0) return;
-          addComment(text);
-          setText("");
-        }}
-        className="w-full bg-red-600 text-white py-2 rounded mb-2 hover:bg-red-700"
-      >
-        Add Comment
-      </button>
-
-      <button
-        onClick={closePanel}
-        className="w-full bg-gray-300 py-2 rounded hover:bg-gray-400"
-      >
-        Close
-      </button>
     </div>
   );
 }

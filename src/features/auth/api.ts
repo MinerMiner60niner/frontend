@@ -7,7 +7,7 @@ export async function registerUser(
   email: string,
   password: string
 ): Promise<AuthResponse> {
-  const res = await fetch(`${API_URL}/api/register`, {
+  const res = await fetch(`${API_URL}/api/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password }),
@@ -21,29 +21,12 @@ export async function loginUser(
   email: string,
   password: string
 ): Promise<AuthResponse> {
-  const res = await fetch(`${API_URL}/api/login`, {
+  const res = await fetch(`${API_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
   });
 
   if (!res.ok) throw new Error("Nepareizs e-pasts vai parole");
-  return res.json();
-}
-
-/* -------------------------------------------------------
-   LIKE SLIDE — pievienots, lai salabotu useLikes.ts kļūdu
--------------------------------------------------------- */
-export async function likeSlide(slideId: number, userId: number) {
-  const res = await fetch(
-    `${API_URL}/api/slides/${slideId}/like`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId }),
-    }
-  );
-
-  if (!res.ok) throw new Error("Neizdevās pievienot like");
   return res.json();
 }
