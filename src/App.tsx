@@ -1,11 +1,11 @@
 import { useSlides } from "./hooks/useSlides";
-import { SlideViewer } from "./src/features/slides/components/SlideViewer";
+import { SlideViewer } from "./features/slides/components/SlideViewer";
 
-import { Header } from "./src/components/Header";
-import { LanguageProvider } from "./context/LanguageContext";
-import { AuthProvider } from "./src/features/auth/AuthContext";
+import { Header } from "./components/Header";
+import { LanguageProvider } from "../context/LanguageContext";
+import { AuthProvider } from "./features/auth/AuthContext";
 
-import { LoginModal } from "./src/components/LoginModal";
+import { LoginModal } from "./components/LoginModal";
 
 export default function App() {
   const { slides, loading, error } = useSlides();

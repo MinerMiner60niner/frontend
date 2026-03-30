@@ -30,3 +30,20 @@ export async function loginUser(
   if (!res.ok) throw new Error("Nepareizs e-pasts vai parole");
   return res.json();
 }
+
+/* -------------------------------------------------------
+   LIKE SLIDE — pievienots, lai salabotu useLikes.ts kļūdu
+-------------------------------------------------------- */
+export async function likeSlide(slideId: number, userId: number) {
+  const res = await fetch(
+    `${API_URL}/api/slides/${slideId}/like`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId }),
+    }
+  );
+
+  if (!res.ok) throw new Error("Neizdevās pievienot like");
+  return res.json();
+}

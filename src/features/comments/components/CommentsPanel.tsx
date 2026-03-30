@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useComments } from "../../../../hooks/useComments";
+import { useComments } from "../../../hooks/useComments";
 
 type Props = {
   slideId: number;

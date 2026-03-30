@@ -1,4 +1,4 @@
-import { useLanguage } from "../../../../hooks/useLanguage";
+import { useLanguage } from "../../../hooks/useLanguage";
 import type { Line } from "../types";
 
 type Props = { lines: Line[] };

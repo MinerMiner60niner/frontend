@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { fetchSlides } from "../src/features/auth/api";
-import type { Slide } from "../src/features/slides/types";
+import { fetchSlides } from "../features/slides/api";
+import type { Slide } from "../features/slides/types";
 
 export function useSlides() {
   const [slides, setSlides] = useState<Slide[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   async function load() {
     try {
       setLoading(true);
       const data = await fetchSlides();
       setSlides(data);
-    } catch {
-      setError("Neizdevās ielādēt slīdus");
+    } catch (err) {
+      setError("Neizdevās ielādēt slidus");
     } finally {
       setLoading(false);
     }

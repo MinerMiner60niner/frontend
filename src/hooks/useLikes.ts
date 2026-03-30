@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { likeSlide } from "../src/features/auth/api";
-import { useAuth } from "../src/features/auth/AuthContext";
+import { likeSlide } from "../features/auth/api";
+import { useAuth } from "../features/auth/AuthContext";
 
 export function useLikes(slideId: number) {
   const { user } = useAuth();

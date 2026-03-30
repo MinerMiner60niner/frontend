@@ -1,4 +1,4 @@
-import { useLanguage } from "../../hooks/useLanguage";
+import { useLanguage } from "../hooks/useLanguage";
 import { useAuth } from "../features/auth/AuthContext";
 
 export function Header() {

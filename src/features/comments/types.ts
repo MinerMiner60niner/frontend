@@ -3,6 +3,6 @@ export type Comment = {
   slideId: number;
   userId: number;
   text: string;
-  createdAt: string;
-  userName: string;
+  created_at: string;
+  user_name: string;
 };

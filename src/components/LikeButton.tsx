@@ -1,4 +1,4 @@
-import { useLikes } from "../../hooks/useLikes";
+import { useLikes } from "../hooks/useLikes";
 
 export function LikeButton({ slideId }: { slideId: number }) {
   const { likes, sendLike, error } = useLikes(slideId);
