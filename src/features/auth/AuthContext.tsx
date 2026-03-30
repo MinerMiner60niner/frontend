@@ -17,13 +17,12 @@ type AuthContextType = {
   closeLogin: () => void;
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null);
   const [loginOpen, setLoginOpen] = useState(false);
 
-  // Load user from localStorage on refresh
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userData = localStorage.getItem("user");
@@ -33,10 +32,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // LOGIN
   async function login(email: string, password: string) {
     const { token } = await loginUser(email, password);
-
     const payload = JSON.parse(atob(token.split(".")[1]));
 
     const userObj = {
@@ -52,13 +49,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoginOpen(false);
   }
 
-  // REGISTER
   async function register(name: string, email: string, password: string) {
     await registerUser(name, email, password);
-    await login(email, password); // auto-login
+    await login(email, password);
   }
 
-  // LOGOUT
   function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");

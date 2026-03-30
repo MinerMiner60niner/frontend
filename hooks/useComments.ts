@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { fetchComments, postComment, deleteCommentApi } from "../features/comments/api";
-import type { Comment } from "../features/comments/types";
-import { useAuth } from "../hooks/useAuth";
+import { fetchComments, postComment, deleteCommentApi } from "../src/features/comments/api";
+import type { Comment } from "../src/features/comments/types";
+import { useAuth } from "./useAuth";
 
 export function useComments(slideId: number) {
   const { user } = useAuth();
@@ -56,6 +56,6 @@ export function useComments(slideId: number) {
     error,
     addComment,
     deleteComment,
-    reload: load
+    reload: load,
   };
 }
