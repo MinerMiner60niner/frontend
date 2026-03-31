@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { likeSlide } from "../features/auth/api";
+import { api } from "../lib/axios";
 import { useAuth } from "../features/auth/AuthContext";
-
-const API_URL = "https://backend-so4g.onrender.com";
 
 export function useLikes(slideId: number) {
   const { user } = useAuth();
-  const [likes, setLikes] = useState<number>(0);
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likes, setLikes] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
   const [error, setError] = useState("");
 
   async function sendLike() {
@@ -27,16 +26,14 @@ export function useLikes(slideId: number) {
   }
 
   useEffect(() => {
-    const url = `${API_URL}/api/slides/${slideId}/likes${
-      user ? `?userId=${user.id}` : ""
-    }`;
-
-    fetch(url)
-      .then((r) => r.json())
-      .then((d) => {
-        setLikes(d.likes);
-        if (d.userHasLiked !== undefined) {
-          setIsLiked(d.userHasLiked);
+    api
+      .get(`/api/slides/${slideId}/likes`, {
+        params: user ? { userId: user.id } : {},
+      })
+      .then((res) => {
+        setLikes(res.data.likes);
+        if (res.data.userHasLiked !== undefined) {
+          setIsLiked(res.data.userHasLiked);
         }
       })
       .catch(() => setError("Neizdevās ielādēt datus"));
