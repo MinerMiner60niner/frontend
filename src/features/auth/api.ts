@@ -22,7 +22,6 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
   return res.json();
 }
 
-// Šī funkcija salabo useLikes.ts kļūdu
 export async function likeSlide(slideId: number, userId: number) {
   const res = await fetch(`${API_URL}/api/slides/${slideId}/like`, {
     method: "POST",
