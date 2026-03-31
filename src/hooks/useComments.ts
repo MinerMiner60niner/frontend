@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { fetchComments, postComment, deleteCommentApi } from "../features/comments/api";
+import {
+  fetchComments,
+  postComment,
+  deleteCommentApi,
+} from "../features/comments/api";
 import type { Comment } from "../features/comments/types";
 import { useAuth } from "./useAuth";
 
@@ -13,7 +17,6 @@ export function useComments(slideId: number) {
     try {
       setLoading(true);
       setError("");
-
       const data = await fetchComments(slideId);
       setComments(data);
     } catch {
@@ -31,7 +34,7 @@ export function useComments(slideId: number) {
 
     try {
       const newComment = await postComment(slideId, user.id, text);
-      setComments(prev => [...prev, newComment]);
+      setComments((prev) => [...prev, newComment]);
     } catch {
       setError("Neizdevās pievienot komentāru");
     }
@@ -39,8 +42,8 @@ export function useComments(slideId: number) {
 
   async function deleteComment(id: number) {
     try {
-      await deleteCommentApi(id);
-      setComments(prev => prev.filter(c => c.id !== id));
+      await deleteCommentApi(slideId, id);
+      setComments((prev) => prev.filter((c) => c.id !== id));
     } catch {
       setError("Neizdevās dzēst komentāru");
     }
