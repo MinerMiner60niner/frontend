@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useComments } from "../../../hooks/useComments";
 import type { ApiError } from "../../../types/ApiError";
+import { useAuth } from "../../../hooks/useAuth";
 
 type Props = {
   slideId: number;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export function CommentsPanel({ slideId, toast }: Props) {
+  const { user } = useAuth();
   const { comments, loading, error, addComment, deleteComment } = useComments(slideId);
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
@@ -69,7 +71,10 @@ export function CommentsPanel({ slideId, toast }: Props) {
         <div className="space-y-3 mb-4">
           {comments.map((c) => (
             <div key={c.id} className="p-2 border rounded bg-gray-50">
-              <p className="font-semibold">{c.user_name}</p>
+              <p className="font-semibold">
+                {c.userId === user?.id ? user.email : `User #${c.userId}`}
+              </p>
+
               <p>{c.text}</p>
 
               <button
