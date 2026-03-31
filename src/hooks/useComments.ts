@@ -28,7 +28,7 @@ export function useComments(slideId: number) {
 
   async function addComment(text: string) {
     if (!user) {
-      setError("Jābūt ielogotam, lai pievienotu komentāru");
+      setError("Nesanāca izveidot komentāru!");
       return;
     }
 
@@ -36,7 +36,7 @@ export function useComments(slideId: number) {
       const newComment = await postComment(slideId, user.id, text);
       setComments((prev) => [...prev, newComment]);
     } catch {
-      setError("Neizdevās pievienot komentāru");
+      setError("Nesanāca izveidot komentāru!");
     }
   }
 
